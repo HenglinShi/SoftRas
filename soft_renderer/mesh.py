@@ -113,7 +113,7 @@ class Mesh(object):
         if self._surface_normals_update:
             v10 = self.face_vertices[:, :, 0] - self.face_vertices[:, :, 1]
             v12 = self.face_vertices[:, :, 2] - self.face_vertices[:, :, 1]
-            self._surface_normals = F.normalize(torch.cross(v12, v10), p=2, dim=2, eps=1e-6)
+            self._surface_normals = F.normalize(torch.linalg.cross(v12, v10), p=2, dim=2, eps=1e-6)
             self._surface_normals_update = False
         return self._surface_normals
 

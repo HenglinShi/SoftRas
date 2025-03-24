@@ -20,7 +20,7 @@ class Projection(nn.Module):
         if self.P is None or self.P.ndimension() != 3 or self.P.shape[1] != 3 or self.P.shape[2] != 4:
             raise ValueError('You need to provide a valid (batch_size)x3x4 projection matrix')
         if dist_coeffs is None:
-            self.dist_coeffs = torch.cuda.FloatTensor([[0., 0., 0., 0., 0.]]).repeat(self.P.shape[0], 1)
+            self.dist_coeffs = torch.tensor([[0., 0., 0., 0., 0.]], dtype=torch.float, device='cuda').repeat(self.P.shape[0], 1)
 
     def forward(self, vertices):
         vertices = srf.projection(vertices, self.P, self.dist_coeffs, self.orig_size)
